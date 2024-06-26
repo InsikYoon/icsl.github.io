@@ -30,8 +30,21 @@ always@(*) begin
   else begin valid_sink = 1'b0; end
 end
 
+logic [4:0] data_remaining;
+logic [5:0] data_max;
 always@(posedge clk or negedge rst) begin
-  data_buf <= data_buf <<16,
+  if (~rst) begin 
+    data_remaining <= 5'b0;
+    data_max <= 6'b0; 
+  end
+  else begin
+    if ( data_max > 22) begin
+        
+    end
+    else begin
+      data_max <= data_remaining+ 6'h10;
+    end
+  end 
 end
 
 assign rdy_src = 1'b1;
